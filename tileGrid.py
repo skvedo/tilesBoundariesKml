@@ -30,11 +30,13 @@ def num2deg(xtile, ytile, zoom):
 
 centertilenum  = deg2num(args.LAT, args.LON, zoom)
 
-xMinTileNum = int(centertilenum[0] - args.X/2)
-yMinTileNum = int(centertilenum[1] - args.Y/2)
-xMaxTileNum = int(centertilenum[0] + args.X/2)
-yMaxTileNum = int(centertilenum[1] + args.Y/2)
+#TODO: test and modify to work on both sides of prime median and equator (even around)
+#TODO: currenty tested just for central Europe
 
+xMinTileNum = centertilenum[0] - math.ceil((args.X-1)/2)
+yMinTileNum = centertilenum[1] - math.ceil((args.Y-1)/2)
+xMaxTileNum = centertilenum[0] + math.floor((args.X-1)/2)
+yMaxTileNum = centertilenum[1] + math.floor((args.Y-1)/2)
 
 latMax, lonMin = num2deg(xMinTileNum, yMinTileNum, zoom)
 latMin, lonMax = num2deg(xMaxTileNum+1, yMaxTileNum+1, zoom)
@@ -45,26 +47,24 @@ with open(args.OUTFILE, "w") as f:
     f.write('<kml xmlns="http://earth.google.com/kml/2.1"> <Document>\n')
     f.write('<Style id="normal">\n')
     f.write('  <LineStyle>\n')
-    f.write('    <color>ffffff</color>\n')
+    f.write('    <color>ffffffff</color>\n')
     f.write('    <width>1</width>\n')
     f.write('  </LineStyle>\n')
     f.write('  </Style>\n')
-<Placemark>
-<styleUrl>#normal</styleUrl>
     f.write('<Placemark>\n')
     f.write('<styleUrl>#normal</styleUrl>\n')
     f.write('<MultiGeometry>\n')
-    #write columns
+    #write vertical lines
     x = xMinTileNum
-    while x < xMaxTileNum+1:
+    while x <= xMaxTileNum+1:
         lat, lon = num2deg(x, yMinTileNum, zoom)
         f.write('    <LineString>\n')
         f.write(f'      <coordinates>{lon},{latMax} {lon},{latMin}</coordinates>\n')
         f.write('    </LineString>\n')
         x+=1
-    #write rows
+    #write horizontal lines
     y = yMinTileNum
-    while y < yMaxTileNum+1:
+    while y <= yMaxTileNum+1:
         lat, lon = num2deg(xMinTileNum, y, zoom)
         f.write('    <LineString>\n')
         f.write(f'      <coordinates>{lonMax},{lat} {lonMin},{lat}</coordinates>\n')
