@@ -11,7 +11,7 @@ usage: tileGrid.py [-h] LAT LON X Y OUTFILE
 
 LAT = center of mesh latitude
 LON = center of mesh longitude
-X = with of mesh in tiles
+X = width of mesh in tiles
 Y = height of mesh in tiles
 OUTFILE = output file, will be 
 ```
