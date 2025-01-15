@@ -7,7 +7,7 @@ parser.add_argument("LAT", help="latitude of area center", type=float)
 parser.add_argument("LON", help="longitude of area center", type=float)
 parser.add_argument("X", help="number of columns", type=int)
 parser.add_argument("Y", help="number of lines", type=int)
-parser.add_argument("OUTFILE", help="where to write")
+parser.add_argument("OUTFILE", help="where to write, will be replaced if exist")
 
 args = parser.parse_args()
 
