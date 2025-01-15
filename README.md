@@ -13,6 +13,6 @@ LAT = center of mesh latitude
 LON = center of mesh longitude
 X = width of mesh in tiles
 Y = height of mesh in tiles
-OUTFILE = output file, will be 
+OUTFILE = where to write, will be replaced if exist
 ```
 ![image](https://user-images.githubusercontent.com/29920587/224908373-cd97ab25-b9ac-4aaf-b391-cff070b6b882.png)
